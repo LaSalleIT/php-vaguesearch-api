@@ -67,7 +67,6 @@ class Search {
 	 * @return boolean, true if the result exceeds the gradient, false
 	 * if the result doesn't exceed.
 	 */
-
         public function keywordSearch($keywords, $destination, $gradient) {
                 $judgementSequence = array_fill(0, count($keywords), false);
                 $iterationCount = 0;
