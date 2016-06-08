@@ -64,10 +64,12 @@ class Search {
 	 * exceed the given gradient, the function returns true.
 	 * @param $keywords String Array, the list of given keywords to match
 	 * @param $destination String, the given String to perform the search
+	 * @param $gradient Integer, gradient in percentile
+	 * @param $bias Integer, the oscillation value in percentile. Recommended not to surpass 10%.
 	 * @return boolean, true if the result exceeds the gradient, false
 	 * if the result doesn't exceed.
 	 */
-        public function keywordSearch($keywords, $destination, $gradient) {
+        public function keywordSearch($keywords, $destination, $gradient, $bias) {
                 $judgementSequence = array_fill(0, count($keywords), false);
                 $iterationCount = 0;
                 $judgementScale = [ 0 , count($keywords) ]; //fraction
@@ -82,6 +84,11 @@ class Search {
                                 $judgementScale[0]++;
                         }
                 }
+		//If false, try to lower the judgementScale
+		if((!(($judgementScale[0] / $judgementScale[1]) >= ($gradient / 100))) &&
+		   (!((($judgementScale[0] + ($bias/100)) / $judgementScale[1]) >= ($gradient / 100))))) {
+				return !((($judgementScale[0] + ($bias/100)) / $judgementScale[1]) - (gradient / 100) <= $bias) ) ? false : true;
+		}
                 return ((($judgementScale[0] / $judgementScale[1]) >= ($gradient / 100)) ? true : false);
         }
 }
