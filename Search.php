@@ -57,7 +57,9 @@ class Search {
 		//
 	}
 
-	/**
+
+
+    /**
 	 * Keyword gradient search
 	 * Search for a list of keywords in a given String. A gradient
 	 * is set in percentile so that if the percentile of the final matches
